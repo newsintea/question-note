@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{タイトル} | 学びノート</title>
+  <meta name="description" content="{1文の説明}">
+  <link rel="stylesheet" href="../styles/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap"><a class="site-title" href="../index.html">学びノート</a></div>
+  </header>
+
+  <main class="wrap">
+    <article class="note">
+      <a class="back-link" href="../index.html">← 一覧</a>
+      <h1>{タイトル}</h1>
+      <div class="note-meta">
+        <time datetime="YYYY-MM-DD">YYYY-MM-DD</time>
+        <div class="tags">
+          <!-- index.html の data-tags と同じタグを、同じ順で -->
+          <a href="../index.html?tag=IT">IT</a>
+        </div>
+      </div>
+
+      <p class="question">{きっかけになった疑問}</p>
+
+      <section class="summary">
+        <h2>ひとことで</h2>
+        <ul>
+          <li>{要点1}</li>
+          <li>{要点2}</li>
+        </ul>
+      </section>
+
+      <h2>{見出し}</h2>
+      <p>{本文}</p>
+
+      <!-- 図解（必要なとき）。幅320基準、色はクラスで指定 -->
+      <figure class="figure">
+        <svg viewBox="0 0 320 120" role="img" aria-label="{図の説明}">
+          <rect class="box" x="0" y="20" width="140" height="60" rx="4"/>
+          <text class="label" x="70" y="55" text-anchor="middle">{A}</text>
+          <line class="stroke-muted" x1="140" y1="50" x2="180" y2="50"/>
+          <rect class="box" x="180" y="20" width="140" height="60" rx="4"/>
+          <text class="label text-mark" x="250" y="55" text-anchor="middle">{B}</text>
+          <text class="sub" x="0" y="104">{補足}</text>
+        </svg>
+        <figcaption>{図のキャプション}</figcaption>
+      </figure>
+
+      <!-- 表 -->
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>{列1}</th><th>{列2}</th></tr></thead>
+          <tbody><tr><td>{値}</td><td>{値}</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="aside">
+        <strong>補足</strong>
+        {補足の内容}
+      </div>
+
+      <div class="caution">
+        <strong>注意</strong>
+        {注意点}
+      </div>
+
+      <!-- 最初の思い込みと違ったことがあれば -->
+      <h2>思っていたのと違ったこと</h2>
+      <p>{最初はこう思っていたが、実際はこうだった}</p>
+
+      <!-- 答えが出ていないことがあれば -->
+      <h2>残った疑問</h2>
+      <ul>
+        <li>{まだわからないこと}</li>
+      </ul>
+
+      <!-- 事実や根拠が大事な内容があるときは必須 -->
+      <section class="references">
+        <h2>参考</h2>
+        <ol>
+          <li><a href="{URL}">{情報源の名前 – ページタイトル}</a></li>
+        </ol>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">本文はAIが生成しています。正確な情報は参考リンク先を確認してください。</div>
+  </footer>
+</body>
+</html>

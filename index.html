@@ -15,24 +15,26 @@
     </section>
 
     <input class="search" type="search" id="search" placeholder="キーワードで探す" aria-label="キーワードで探す">
-    <div class="tag-filter" id="tag-filter" aria-label="タグで絞り込む"></div>
+    <!--
+      タグの一覧（ここに書いた順にボタンが並ぶ）。カンマ区切り。
+      新しいタグはユーザーの確認を取ってから末尾に追加する。
+    -->
+    <div class="tag-filter" id="tag-filter" aria-label="タグで絞り込む" data-tags="IT"></div>
 
     <!--
-      記事一覧。新しい記事を ul の先頭に追加する。
-      data-tags にはカンマ区切りでタグを書く（記事ページのタグと揃える）。
+      ノート一覧。新しいノートを ul の先頭に追加する。
+      data-tags にはカンマ区切りでタグを書く（ノートページのタグと揃える）。
+      例:
+      <li data-tags="IT">
+        <a class="title" href="notes/slug.html">タイトル</a>
+        <div class="meta"><time datetime="YYYY-MM-DD">YYYY-MM-DD</time><span class="tags"></span></div>
+      </li>
     -->
     <ul class="note-list" id="note-list">
-      <li data-tags="科学,自然">
-        <a class="title" href="notes/why-sky-is-blue.html">空はなぜ青く、夕焼けはなぜ赤いのか</a>
-        <div class="meta"><time datetime="2026-10-19">2026-10-19</time><span class="tags"></span></div>
-      </li>
-      <li data-tags="IT,ネットワーク">
-        <a class="title" href="notes/http3-quic.html">HTTP/3（QUIC）はなぜ速いのか</a>
-        <div class="meta"><time datetime="2026-10-19">2026-10-19</time><span class="tags"></span></div>
-      </li>
     </ul>
 
     <p class="empty" id="empty" hidden>該当するノートがありません。</p>
+    <p class="empty" id="no-notes" hidden>まだノートがありません。</p>
   </main>
 
   <footer class="site-footer">
@@ -46,10 +48,11 @@
     const empty = document.getElementById('empty');
     let activeTag = new URLSearchParams(location.search).get('tag') || '';
 
-    const tagsOf = (li) => li.dataset.tags.split(',').map((t) => t.trim()).filter(Boolean);
+    const splitTags = (s) => (s || '').split(',').map((t) => t.trim()).filter(Boolean);
+    const tagsOf = (li) => splitTags(li.dataset.tags);
 
-    // 各記事のタグ表示と、タグごとの件数を作る
-    const counts = new Map();
+    // 各ノートのタグ表示と、タグごとの件数を作る（タグ一覧の順。一覧にないタグも末尾に出す）
+    const counts = new Map(splitTags(filter.dataset.tags).map((t) => [t, 0]));
     items.forEach((li) => {
       const box = li.querySelector('.tags');
       tagsOf(li).forEach((tag) => {
@@ -63,8 +66,8 @@
     });
     if (activeTag && !counts.has(activeTag)) activeTag = '';
 
-    // タグボタン（件数の多い順）
-    const buttons = [['', 'すべて', items.length], ...[...counts].sort((a, b) => b[1] - a[1]).map(([t, n]) => [t, t, n])];
+    // タグボタン
+    const buttons = [['', 'すべて', items.length], ...[...counts].map(([t, n]) => [t, t, n])];
     buttons.forEach(([tag, label, n]) => {
       const b = document.createElement('button');
       b.type = 'button';
@@ -95,7 +98,8 @@
         if (!li.hidden) shown++;
       });
       filter.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tag === activeTag)));
-      empty.hidden = shown > 0;
+      empty.hidden = shown > 0 || items.length === 0;
+      document.getElementById('no-notes').hidden = items.length > 0;
     }
 
     search.addEventListener('input', render);
