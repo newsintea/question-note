@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HTTP/3（QUIC）はなぜ速いのか | 疑問ノート</title>
+  <title>HTTP/3（QUIC）はなぜ速いのか | 学びノート</title>
   <meta name="description" content="HTTP/3がTCPではなくQUIC（UDP）を使う理由と、HTTP/2から何が改善されたのかを図解で整理。">
   <link rel="stylesheet" href="../styles/site.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap"><a class="site-title" href="../index.html">疑問ノート</a></div>
+    <div class="wrap"><a class="site-title" href="../index.html">学びノート</a></div>
   </header>
 
   <main class="wrap">
@@ -27,7 +27,7 @@
       <p class="question">HTTP/3ってUDPを使うらしいけど、なんでそれで速くなるの？ HTTP/2と何が違う？</p>
 
       <section class="summary">
-        <h2>まとめ</h2>
+        <h2>ひとことで</h2>
         <ul>
           <li>HTTP/3は、TCPではなく <strong>QUIC</strong>（UDPの上に作られた新しい通信プロトコル）を使う</li>
           <li>接続の確立と暗号化（TLS）の準備を<strong>まとめて行う</strong>ので、通信を始めるまでの往復が減る</li>
