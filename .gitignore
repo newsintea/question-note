@@ -1,0 +1,7 @@
+.DS_Store
+.env*
+*.json
+*.yaml
+!.github/workflows/*.yml
+_site/
+node_modules/

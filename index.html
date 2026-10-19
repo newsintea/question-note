@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>技術ノート</title>
+  <meta name="description" content="気になったことをその場で記事にしていく技術ノート。">
+  <link rel="stylesheet" href="styles/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="site-title" href="index.html"><span class="mark">N</span>技術ノート</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>技術ノート</h1>
+      <p>気になったことを、その場で記事にしていくノート。</p>
+    </section>
+
+    <input class="search" type="search" placeholder="記事を検索" aria-label="記事を検索" id="search">
+
+    <!-- 記事一覧：カテゴリごとに section を作り、新しい記事を ul の先頭に追加する -->
+    <section class="category">
+      <h2>ネットワーク</h2>
+      <ul class="cards">
+        <li class="card">
+          <a href="network/http3-quic.html">
+            <div class="q">HTTP/3（QUIC）はなぜ速いのか</div>
+            <div class="meta">2026-10-19</div>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <p class="empty" id="empty" hidden>該当する記事がありません。</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">本文はAIが生成しています。正確な情報は各記事の参考リンクを確認してください。</div>
+  </footer>
+
+  <script>
+    const input = document.getElementById('search');
+    const empty = document.getElementById('empty');
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      let total = 0;
+      document.querySelectorAll('.category').forEach((cat) => {
+        let shown = 0;
+        cat.querySelectorAll('.card').forEach((card) => {
+          const hit = card.textContent.toLowerCase().includes(q);
+          card.hidden = !hit;
+          if (hit) shown++;
+        });
+        cat.hidden = shown === 0;
+        total += shown;
+      });
+      empty.hidden = total > 0;
+    });
+  </script>
+</body>
+</html>
