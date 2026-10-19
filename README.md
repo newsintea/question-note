@@ -1,8 +1,11 @@
-# 疑問ノート
+# 学びノート
 
-日常の疑問から技術の話まで、気になったことをその場で調べて残していくノート。スマホから Claude Code（クラウドセッション）に「質問：〜」と送ると、ノートを作ってPRを出す運用。
+気になったことを会話で調べ、わかったことを残していくノート。
+
+スマホから Claude Code（クラウドセッション）に疑問を投げて普段どおり会話し、理解がまとまったら「まとめて」と頼むと、会話から得られた学びをノートにしてPRを出す運用。
 
 - 公開先: GitHub Pages（`main` への push で `.github/workflows/static.yml` がデプロイ）
-- ノートのルール: [CLAUDE.md](CLAUDE.md)
+- 会話のルール: [CLAUDE.md](CLAUDE.md)
+- ノートの作り方: [.claude/skills/learning-note/SKILL.md](.claude/skills/learning-note/SKILL.md)
 
 本文はAIが生成しています。正確な情報は各ノートの参考リンク先を確認してください。
