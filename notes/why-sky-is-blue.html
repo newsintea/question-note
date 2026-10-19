@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>空はなぜ青く、夕焼けはなぜ赤いのか | 疑問ノート</title>
+  <meta name="description" content="空が青く見える理由（レイリー散乱）と、夕焼けが赤い理由・紫に見えない理由を図解で整理。">
+  <link rel="stylesheet" href="../styles/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap"><a class="site-title" href="../index.html">疑問ノート</a></div>
+  </header>
+
+  <main class="wrap">
+    <article class="note">
+      <a class="back-link" href="../index.html">← 一覧</a>
+      <h1>空はなぜ青く、夕焼けはなぜ赤いのか</h1>
+      <div class="note-meta">
+        <time datetime="2026-10-19">2026-10-19</time>
+        <div class="tags">
+          <a href="../index.html?tag=科学">科学</a>
+          <a href="../index.html?tag=自然">自然</a>
+        </div>
+      </div>
+
+      <p class="question">空ってなんで青いの？ 同じ空なのに夕方は赤くなるのはなぜ？</p>
+
+      <section class="summary">
+        <h2>まとめ</h2>
+        <ul>
+          <li>太陽の光は白く見えるが、実際はいろいろな色（波長）の光が混ざっている</li>
+          <li>空気の分子は、<strong>波長の短い青い光ほど強く</strong>あちこちに散らす（<strong>レイリー散乱</strong>）。散らされた青い光が空全体から目に届くので、空は青く見える</li>
+          <li>夕方は太陽の光が空気の中を<strong>長く通ってくる</strong>ので、途中で青い光が散らされきってしまい、残った赤やオレンジの光が届く</li>
+        </ul>
+      </section>
+
+      <h2>光は「色の混ざりもの」</h2>
+      <p>太陽の光は白っぽく見えますが、プリズムに通すと虹のように分かれるとおり、いろいろな色の光が混ざっています。色の違いは光の<strong>波長</strong>（波の長さ）の違いで、赤は波長が長く、青や紫は短い光です。</p>
+
+      <h2>空が青い理由：レイリー散乱</h2>
+      <p>太陽の光が大気に入ると、窒素や酸素などの空気の分子にぶつかって、あちこちに散らされます。空気の分子は光の波長よりずっと小さいので、<strong>波長の短い光ほど強く散らされる</strong>性質があります。これを <strong>レイリー散乱</strong> と呼びます。</p>
+      <p>青い光は空全体に散らばり、どの方向を見ても目に届きます。だから空は青く見えます。</p>
+
+      <figure class="figure">
+        <svg viewBox="0 0 320 260" role="img" aria-label="昼と夕方で、太陽光が通る空気の距離が違うことを示す図">
+          <!-- 昼 -->
+          <text class="label" x="0" y="14" font-weight="700">昼：通る空気が短い</text>
+          <circle class="fill-mark" cx="160" cy="40" r="10"/>
+          <rect class="box" x="0" y="64" width="320" height="44" rx="4"/>
+          <text class="sub" x="8" y="80">大気</text>
+          <line class="stroke-muted" x1="160" y1="54" x2="160" y2="118"/>
+          <path class="stroke-blue" d="M160 86 l-26 -12 M160 86 l26 -12 M160 86 l-30 10 M160 86 l30 10"/>
+          <text class="sub text-blue" x="196" y="100">青い光があちこちへ</text>
+          <circle class="fill" cx="160" cy="124" r="4"/>
+          <text class="sub" x="170" y="128">自分</text>
+
+          <!-- 夕方 -->
+          <text class="label" x="0" y="164" font-weight="700">夕方：通る空気が長い</text>
+          <rect class="box" x="0" y="200" width="320" height="44" rx="4"/>
+          <circle class="fill-mark" cx="10" cy="222" r="10"/>
+          <line class="stroke-mark" x1="22" y1="222" x2="296" y2="222"/>
+          <path class="stroke-blue" d="M70 222 l-10 -14 M110 222 l8 14 M150 222 l-8 -14 M190 222 l8 14"/>
+          <text class="sub text-blue" x="40" y="194">途中で青い光が散らされきる</text>
+          <circle class="fill" cx="304" cy="222" r="4"/>
+          <text class="label text-mark" x="300" y="258" text-anchor="end">赤やオレンジが残って届く</text>
+        </svg>
+        <figcaption>昼と夕方で、光が通ってくる空気の量が違う</figcaption>
+      </figure>
+
+      <h2>夕焼けが赤い理由</h2>
+      <p>夕方は太陽が低い位置にあるので、光は空気の層を斜めに、昼よりずっと長い距離通ってきます。その間に青い光は何度も散らされて、まっすぐには届かなくなります。結果として、散らされにくい<strong>赤やオレンジの光</strong>が残って目に届きます。</p>
+      <p>昼の青空と夕焼けは、同じレイリー散乱を、違う角度と時間から見ているだけです。</p>
+
+      <h2>じゃあ、なぜ紫ではないのか</h2>
+      <p>紫の光は青よりさらに波長が短いので、もっと強く散らされます。それでも空が紫に見えないのは、次の理由からです。</p>
+      <ul>
+        <li>太陽の光には、もともと紫の光が少ない</li>
+        <li>人間の目は、紫より青に敏感</li>
+      </ul>
+
+      <div class="aside">
+        <strong>補足</strong>
+        地平線に近い空が白っぽく見えるのも、光が長い距離を通ってくる間に何度も散らされ、色が混ざり合うためです。
+      </div>
+
+      <section class="references">
+        <h2>参考</h2>
+        <ol>
+          <li><a href="https://spaceplace.nasa.gov/blue-sky/en/">NASA Space Place – Why Is the Sky Blue?</a></li>
+          <li><a href="https://www.metoffice.gov.uk/weather/learn-about/weather/optical-effects/why-is-the-sky-blue">Met Office – Why the sky is blue and sunsets red</a></li>
+        </ol>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">本文はAIが生成しています。正確な情報は参考リンク先を確認してください。</div>
+  </footer>
+</body>
+</html>

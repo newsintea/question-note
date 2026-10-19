@@ -3,63 +3,103 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>技術ノート</title>
-  <meta name="description" content="気になったことをその場で記事にしていく技術ノート。">
+  <title>疑問ノート</title>
+  <meta name="description" content="気になったことを、その場で調べて残していくノート。">
   <link rel="stylesheet" href="styles/site.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="site-title" href="index.html"><span class="mark">N</span>技術ノート</a>
-    </div>
-  </header>
-
   <main class="wrap">
-    <section class="hero">
-      <h1>技術ノート</h1>
-      <p>気になったことを、その場で記事にしていくノート。</p>
+    <section class="intro">
+      <h1>疑問ノート</h1>
+      <p>気になったことを、その場で調べて残していくノート。</p>
     </section>
 
-    <input class="search" type="search" placeholder="記事を検索" aria-label="記事を検索" id="search">
+    <input class="search" type="search" id="search" placeholder="キーワードで探す" aria-label="キーワードで探す">
+    <div class="tag-filter" id="tag-filter" aria-label="タグで絞り込む"></div>
 
-    <!-- 記事一覧：カテゴリごとに section を作り、新しい記事を ul の先頭に追加する -->
-    <section class="category">
-      <h2>ネットワーク</h2>
-      <ul class="cards">
-        <li class="card">
-          <a href="network/http3-quic.html">
-            <div class="q">HTTP/3（QUIC）はなぜ速いのか</div>
-            <div class="meta">2026-10-19</div>
-          </a>
-        </li>
-      </ul>
-    </section>
+    <!--
+      記事一覧。新しい記事を ul の先頭に追加する。
+      data-tags にはカンマ区切りでタグを書く（記事ページのタグと揃える）。
+    -->
+    <ul class="note-list" id="note-list">
+      <li data-tags="科学,自然">
+        <a class="title" href="notes/why-sky-is-blue.html">空はなぜ青く、夕焼けはなぜ赤いのか</a>
+        <div class="meta"><time datetime="2026-10-19">2026-10-19</time><span class="tags"></span></div>
+      </li>
+      <li data-tags="IT,ネットワーク">
+        <a class="title" href="notes/http3-quic.html">HTTP/3（QUIC）はなぜ速いのか</a>
+        <div class="meta"><time datetime="2026-10-19">2026-10-19</time><span class="tags"></span></div>
+      </li>
+    </ul>
 
-    <p class="empty" id="empty" hidden>該当する記事がありません。</p>
+    <p class="empty" id="empty" hidden>該当するノートがありません。</p>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">本文はAIが生成しています。正確な情報は各記事の参考リンクを確認してください。</div>
+    <div class="wrap">本文はAIが生成しています。正確な情報は各ノートの参考リンク先を確認してください。</div>
   </footer>
 
   <script>
-    const input = document.getElementById('search');
+    const items = [...document.querySelectorAll('#note-list li')];
+    const search = document.getElementById('search');
+    const filter = document.getElementById('tag-filter');
     const empty = document.getElementById('empty');
-    input.addEventListener('input', () => {
-      const q = input.value.trim().toLowerCase();
-      let total = 0;
-      document.querySelectorAll('.category').forEach((cat) => {
-        let shown = 0;
-        cat.querySelectorAll('.card').forEach((card) => {
-          const hit = card.textContent.toLowerCase().includes(q);
-          card.hidden = !hit;
-          if (hit) shown++;
-        });
-        cat.hidden = shown === 0;
-        total += shown;
+    let activeTag = new URLSearchParams(location.search).get('tag') || '';
+
+    const tagsOf = (li) => li.dataset.tags.split(',').map((t) => t.trim()).filter(Boolean);
+
+    // 各記事のタグ表示と、タグごとの件数を作る
+    const counts = new Map();
+    items.forEach((li) => {
+      const box = li.querySelector('.tags');
+      tagsOf(li).forEach((tag) => {
+        counts.set(tag, (counts.get(tag) || 0) + 1);
+        const a = document.createElement('a');
+        a.href = '?tag=' + encodeURIComponent(tag);
+        a.textContent = tag;
+        a.addEventListener('click', (e) => { e.preventDefault(); setTag(tag); });
+        box.appendChild(a);
       });
-      empty.hidden = total > 0;
     });
+    if (activeTag && !counts.has(activeTag)) activeTag = '';
+
+    // タグボタン（件数の多い順）
+    const buttons = [['', 'すべて', items.length], ...[...counts].sort((a, b) => b[1] - a[1]).map(([t, n]) => [t, t, n])];
+    buttons.forEach(([tag, label, n]) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.tag = tag;
+      b.append(label);
+      const c = document.createElement('span');
+      c.className = 'count';
+      c.textContent = n;
+      b.appendChild(c);
+      b.addEventListener('click', () => setTag(tag === activeTag ? '' : tag));
+      filter.appendChild(b);
+    });
+
+    function setTag(tag) {
+      activeTag = tag;
+      const url = tag ? '?tag=' + encodeURIComponent(tag) : location.pathname;
+      history.replaceState(null, '', url);
+      render();
+    }
+
+    function render() {
+      const q = search.value.trim().toLowerCase();
+      let shown = 0;
+      items.forEach((li) => {
+        const hitTag = !activeTag || tagsOf(li).includes(activeTag);
+        const hitText = !q || li.textContent.toLowerCase().includes(q);
+        li.hidden = !(hitTag && hitText);
+        if (!li.hidden) shown++;
+      });
+      filter.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.tag === activeTag)));
+      empty.hidden = shown > 0;
+    }
+
+    search.addEventListener('input', render);
+    render();
   </script>
 </body>
 </html>
